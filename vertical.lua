@@ -36,6 +36,35 @@ local createBackDrop = function(self, obj)
 	bg:SetPoint("BOTTOM", obj, "BOTTOM", 0, -6)
 end
 
+local siValue = function(val)
+	if(val >= 1e6) then
+		return ('%.1f'):format(val / 1e6):gsub('%.', 'm')
+	elseif(val >= 1e4) then
+		return ("%.1f"):format(val / 1e3):gsub('%.', 'k')
+	else
+		return val
+	end
+end
+
+local UnitSpecific = {
+	player = function(self)
+		-- We create it on the health bar, as statusbar like to stay high...
+		local combat = self.Health:CreateTexture(nil, "OVERLAY")
+		combat:SetHeight(32)
+		combat:SetWidth(32)
+		combat:SetPoint("BOTTOM", self, 0, -14)
+
+		self.Combat = combat
+
+		local resting = self.Health:CreateTexture(nil, "OVERLAY")
+		resting:SetHeight(24)
+		resting:SetWidth(24)
+		resting:SetPoint("BOTTOMLEFT", self, -6, -8)
+
+		self.Resting = resting
+	end,
+}
+
 -- Stuff that's shared between all frames.
 local Shared = function(self, unit)
 	self.menu = menu
@@ -54,12 +83,16 @@ local Shared = function(self, unit)
 	hp.colorClass = true
 
 	self.Health = hp
+
+	if(UnitSpecific[unit]) then
+		return UnitSpecific[unit](self)
+	end
 end
 
 -- Used by player and target.
 local Double = function(self, unit)
 	-- Add the shared madness
-	Shared(self)
+	Shared(self, unit)
 
 	local hp = self.Health
 	createBackDrop(self, hp)
@@ -90,7 +123,7 @@ end
 -- Used by party.
 local Single = function(self, unit)
 	-- Add the shared madness
-	Shared(self)
+	Shared(self, unit)
 
 	self:SetBackdrop(backdrop)
 	self:SetBackdropColor(0, 0, 0, 1)
@@ -107,7 +140,7 @@ end
 -- Used by target of target.
 local Small = function(self, unit)
 	-- Add the shared madness
-	Shared(self)
+	Shared(self, unit)
 
 	self:SetBackdrop(backdrop)
 	self:SetBackdropColor(0, 0, 0, 1)
