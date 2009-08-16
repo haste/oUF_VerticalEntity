@@ -1,0 +1,9 @@
+## Interface: 30200
+## Title: oUF_VerticalEntity
+## Author: Haste
+## Version: 1.3.0
+## X-eMail: troeks@gmail.com
+## Dependencies: oUF
+## Notes: http://www.wowinterface.com/forums/showthread.php?t=26534
+
+vertical.lua
