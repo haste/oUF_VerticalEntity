@@ -28,17 +28,18 @@ local backdrop = {
 local createBackDrop = function(self, obj)
 	local bg = CreateFrame("Frame", nil, self)
 	bg:SetBackdrop(backdrop)
-	bg:SetBackdropColor(0, 0, 0, .3)
+	bg:SetBackdropColor(0, 0, 0, .5)
 
-	bg:SetPoint("LEFT", obj, "LEFT", -4, 0)
-	bg:SetPoint("RIGHT", obj, "RIGHT", 4, 0)
-	bg:SetPoint("TOP", obj, "TOP", 0, 4)
-	bg:SetPoint("BOTTOM", obj, "BOTTOM", 0, -4)
+	bg:SetPoint("LEFT", obj, "LEFT", -6, 0)
+	bg:SetPoint("RIGHT", obj, "RIGHT", 6, 0)
+	bg:SetPoint("TOP", obj, "TOP", 0, 6)
+	bg:SetPoint("BOTTOM", obj, "BOTTOM", 0, -6)
 end
 
 -- Stuff that's shared between all frames.
 local Shared = function(self, unit)
 	self.menu = menu
+	self.colors = colors
 
 	self:SetScript("OnEnter", UnitFrame_OnEnter)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
