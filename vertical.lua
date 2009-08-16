@@ -62,8 +62,44 @@ local UnitSpecific = {
 		resting:SetPoint("BOTTOMLEFT", self, -6, -8)
 
 		self.Resting = resting
+
+		local hp = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		hp:SetPoint("LEFT", self, "RIGHT", 32, -16)
+		hp:SetFont(GameFontNormal:GetFont(), 16)
+		hp:SetTextColor(1, 1, 1)
+		self:Tag(hp, '[VE-Double:HP]')
+
+		local pp = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		pp:SetPoint("TOP", hp, "BOTTOM")
+		pp:SetFont(GameFontNormal:GetFont(), 16)
+		self:Tag(pp, '[raidcolor][VE-Double:PP]|r')
+	end,
+
+	target = function(self)
+		local hp = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		hp:SetPoint("RIGHT", self, "LEFT", -32, -16)
+		hp:SetFont(GameFontNormal:GetFont(), 16)
+		hp:SetTextColor(1, 1, 1)
+		self:Tag(hp, '[VE-Double:HP]')
+
+		local pp = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		pp:SetPoint("TOP", hp, "BOTTOM")
+		pp:SetFont(GameFontNormal:GetFont(), 16)
+		self:Tag(pp, '[raidcolor][VE-Double:PP]|r')
 	end,
 }
+
+-- Custom tags:
+oUF.Tags['[VE-Double:HP]'] = function(unit)
+	return siValue(UnitHealth(unit))
+end
+
+oUF.Tags['[VE-Double:PP]'] = function(unit)
+	return siValue(UnitPower(unit))
+end
+
+oUF.TagEvents['[VE-Double:HP]'] = 'UNIT_HEALTH'
+oUF.TagEvents['[VE-Double:PP]'] = 'UNIT_ENERGY UNIT_FOCUS UNIT_MANA UNIT_RAGE UNIT_RUNIC_POWER'
 
 -- Stuff that's shared between all frames.
 local Shared = function(self, unit)
