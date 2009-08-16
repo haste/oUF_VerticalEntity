@@ -28,7 +28,7 @@ local backdrop = {
 local createBackDrop = function(self, obj)
 	local bg = CreateFrame("Frame", nil, self)
 	bg:SetBackdrop(backdrop)
-	bg:SetBackdropColor(0, 0, 0, .5)
+	bg:SetBackdropColor(0, 0, 0, .8)
 
 	bg:SetPoint("LEFT", obj, "LEFT", -6, 0)
 	bg:SetPoint("RIGHT", obj, "RIGHT", 6, 0)
@@ -74,17 +74,17 @@ local Double = function(self, unit)
 
 	self.Power = pp
 
-	hp:SetWidth(45 - 10)
-	hp:SetHeight(180 - 8)
+	hp:SetWidth(40 - 12)
+	hp:SetHeight(160 - 8)
 
-	pp:SetWidth(45 - 10)
-	pp:SetHeight(180 - 8)
+	pp:SetWidth(40 - 12)
+	pp:SetHeight(160 - 8)
 
 	hp:SetPoint("LEFT", 5, 0)
 	pp:SetPoint("RIGHT", -5, 0)
 
-	self:SetAttribute('initial-height', 180)
-	self:SetAttribute('initial-width', 45 + 45)
+	self:SetAttribute('initial-height', 160)
+	self:SetAttribute('initial-width', 40 + 40)
 end
 
 -- Used by party.
