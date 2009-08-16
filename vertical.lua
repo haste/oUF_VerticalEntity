@@ -93,7 +93,6 @@ local Single = function(self, unit)
 
 	self:SetBackdrop(backdrop)
 	self:SetBackdropColor(0, 0, 0, 1)
-	self:SetBackdropBorderColor(.3, .3, .3, 1)
 
 	local pp = CreateFrame("StatusBar", nil, self)
 	pp:SetOrientation"VERTICAL"
@@ -111,7 +110,6 @@ local Small = function(self, unit)
 
 	self:SetBackdrop(backdrop)
 	self:SetBackdropColor(0, 0, 0, 1)
-	self:SetBackdropBorderColor(.3, .3, .3, 1)
 end
 
 oUF:RegisterStyle("VerticalEntity - Double", Double)
