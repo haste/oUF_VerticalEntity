@@ -29,6 +29,7 @@ local createBackDrop = function(self, obj)
 	local bg = CreateFrame("Frame", nil, self)
 	bg:SetBackdrop(backdrop)
 	bg:SetBackdropColor(0, 0, 0, .6)
+	bg:SetBackdropBorderColor(1, 1, 1, .6)
 
 	bg:SetPoint("LEFT", obj, "LEFT", -6, 0)
 	bg:SetPoint("RIGHT", obj, "RIGHT", 6, 0)
@@ -185,6 +186,7 @@ local Single = function(self, unit)
 
 	self:SetBackdrop(backdrop)
 	self:SetBackdropColor(0, 0, 0, .6)
+	self:SetBackdropBorderColor(1, 1, 1, .6)
 
 	local hp = self.Health
 
