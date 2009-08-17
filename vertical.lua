@@ -98,11 +98,17 @@ local UnitSpecific = {
 
 -- Custom tags:
 oUF.Tags['[VE-Double:HP]'] = function(unit)
-	return siValue(UnitHealth(unit))
+	local min = UnitHealth(unit)
+	if(min > 0) then
+		return siValue(min)
+	end
 end
 
 oUF.Tags['[VE-Double:PP]'] = function(unit)
-	return siValue(UnitPower(unit))
+	local min = UnitPower(unit)
+	if(min > 0) then
+		return siValue(min)
+	end
 end
 
 oUF.Tags['[VE-Single:HPColor]'] = function(unit)
