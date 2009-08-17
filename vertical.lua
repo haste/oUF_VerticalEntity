@@ -190,8 +190,20 @@ local Single = function(self, unit)
 
 	local hp = self.Health
 
+	local hpbg = hp:CreateTexture(nil, "BORDER")
+	hpbg:SetAllPoints(hp)
+	hpbg:SetAlpha(.8)
+	hpbg:SetTexture(1, 1, 1)
+
+	hpbg.multiplier = .3
+
+	hp.bg = hpbg
+
 	local hptag = hp:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	hptag:SetPoint("BOTTOMLEFT", hp, 0, 5)
+	hptag:SetPoint("BOTTOM", hp, 0, 5)
+	hptag:SetPoint"LEFT"
+	hptag:SetPoint"RIGHT"
+	hptag:SetJustifyH"CENTER"
 	hptag:SetFont(GameFontNormal:GetFont(), 16)
 	hptag:SetTextColor(1, 1, 1)
 	self:Tag(hptag, '[VE-Single:HPColor][VE-Double:HP]|r')
@@ -240,7 +252,6 @@ oUF:SetActiveStyle"VerticalEntity - Single"
 local party = oUF:Spawn("header", "oUF_VEParty")
 party:SetPoint("BOTTOM", 0, 45)
 party:SetManyAttributes(
-	"showSolo", true,
 	"showParty", true,
 	"xOffset", 35,
 	"point", "LEFT"
