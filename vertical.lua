@@ -71,7 +71,7 @@ local UnitSpecific = {
 		self.Resting = resting
 
 		local hp = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-		hp:SetPoint("LEFT", self, "RIGHT", 32, -16)
+		hp:SetPoint("LEFT", self, "RIGHT", 24, -16)
 		hp:SetFont(GameFontNormal:GetFont(), 16)
 		hp:SetTextColor(1, 1, 1)
 		self:Tag(hp, '[VE-Double:HP]')
@@ -84,7 +84,7 @@ local UnitSpecific = {
 
 	target = function(self)
 		local hp = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-		hp:SetPoint("RIGHT", self, "LEFT", -32, -16)
+		hp:SetPoint("RIGHT", self, "LEFT", -24, -16)
 		hp:SetFont(GameFontNormal:GetFont(), 16)
 		hp:SetTextColor(1, 1, 1)
 		self:Tag(hp, '[VE-Double:HP]')
@@ -236,10 +236,11 @@ oUF:Spawn"target":SetPoint("BOTTOM", 400, 20)
 
 oUF:SetActiveStyle"VerticalEntity - Single"
 local party = oUF:Spawn("header", "oUF_VEParty")
-party:SetPoint("BOTTOM", -200, 45)
+party:SetPoint("BOTTOM", 0, 45)
 party:SetManyAttributes(
 	"showSolo", true,
 	"showParty", true,
-	"xOffset", 35
+	"xOffset", 35,
+	"point", "LEFT"
 )
 party:Show()
