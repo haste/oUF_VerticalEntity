@@ -196,7 +196,6 @@ local Single = function(self, unit)
 	hpbg:SetTexture(1, 1, 1)
 
 	hpbg.multiplier = .3
-
 	hp.bg = hpbg
 
 	local hptag = hp:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -212,6 +211,14 @@ local Single = function(self, unit)
 	pp:SetOrientation"VERTICAL"
 	pp:SetStatusBarTexture"Interface\\AddOns\\oUF_VerticalEntity\\textures\\statusbar"
 
+	local ppbg = pp:CreateTexture(nil, "BORDER")
+	ppbg:SetAllPoints(pp)
+	ppbg:SetAlpha(.8)
+	ppbg:SetTexture(1, 1, 1)
+
+	ppbg.multiplier = .3
+
+	pp.bg = ppbg
 	pp.colorPower = true
 
 	self.Power = pp
