@@ -46,6 +46,13 @@ local siValue = function(val)
 	end
 end
 
+local function Hex(r, g, b)
+	if type(r) == "table" then
+		if r.r then r, g, b = r.r, r.g, r.b else r, g, b = unpack(r) end
+	end
+	return string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
+end
+
 local UnitSpecific = {
 	player = function(self)
 		-- We create it on the health bar, as statusbar like to stay high...
@@ -98,8 +105,17 @@ oUF.Tags['[VE-Double:PP]'] = function(unit)
 	return siValue(UnitPower(unit))
 end
 
+oUF.Tags['[VE-Single:HPColor]'] = function(unit)
+	local max = UnitHealthMax(unit)
+	if(max ~= 0) then
+		return Hex(oUF.ColorGradient(UnitHealth(unit) / max, unpack(oUF.colors.smooth)))
+	end
+end
+
 oUF.TagEvents['[VE-Double:HP]'] = 'UNIT_HEALTH'
 oUF.TagEvents['[VE-Double:PP]'] = 'UNIT_ENERGY UNIT_FOCUS UNIT_MANA UNIT_RAGE UNIT_RUNIC_POWER'
+
+oUF.TagEvents['[VE-Single:HPColor]'] = 'UNIT_HEALTH'
 
 -- Stuff that's shared between all frames.
 local Shared = function(self, unit)
@@ -162,7 +178,15 @@ local Single = function(self, unit)
 	Shared(self, unit)
 
 	self:SetBackdrop(backdrop)
-	self:SetBackdropColor(0, 0, 0, 1)
+	self:SetBackdropColor(0, 0, 0, .6)
+
+	local hp = self.Health
+
+	local hptag = hp:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	hptag:SetPoint("BOTTOMLEFT", hp, 0, 5)
+	hptag:SetFont(GameFontNormal:GetFont(), 16)
+	hptag:SetTextColor(1, 1, 1)
+	self:Tag(hptag, '[VE-Single:HPColor][VE-Double:HP]|r')
 
 	local pp = CreateFrame("StatusBar", nil, self)
 	pp:SetOrientation"VERTICAL"
@@ -171,6 +195,18 @@ local Single = function(self, unit)
 	pp.colorPower = true
 
 	self.Power = pp
+
+	hp:SetWidth(60 - 11)
+	hp:SetHeight(135 - 12)
+
+	pp:SetWidth(8 - 2)
+	pp:SetHeight(135 - 12)
+
+	hp:SetPoint("LEFT", 6, 0)
+	pp:SetPoint("RIGHT", -6, 0)
+
+	self:SetAttribute('initial-height', 135)
+	self:SetAttribute('initial-width', 60 + 8)
 end
 
 -- Used by target of target.
@@ -191,6 +227,13 @@ oUF:SetActiveStyle"VerticalEntity - Double"
 oUF:Spawn"player":SetPoint("BOTTOM", -400, 20)
 oUF:Spawn"target":SetPoint("BOTTOM", 400, 20)
 
+
 oUF:SetActiveStyle"VerticalEntity - Single"
-oUF:Spawn"targettarget":SetPoint("BOTTOM")
-oUF:Spawn"pet":SetPoint("BOTTOM")
+local party = oUF:Spawn("header", "oUF_VEParty")
+party:SetPoint("BOTTOM", -200, 45)
+party:SetManyAttributes(
+	"showSolo", true,
+	"showParty", true,
+	"xOffset", 35
+)
+party:Show()
